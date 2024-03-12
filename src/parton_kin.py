@@ -31,7 +31,7 @@ def get_kinematics_df(mass: float) -> pd.DataFrame:
     """
     # Load the ROOT file
     file_path = os.path.join(
-        outputs_dir, f"xs_vlQ_{mass:.2f}TeV", "Events", "run_01", "unweighted_events.lhe.gz"
+        outputs_dir, f"xs_s1tm43_{mass:.2f}TeV", "Events", "run_01", "unweighted_events.lhe.gz"
     )
 
     tree = list(map(get_event_by_child, readLHEF(file_path)))

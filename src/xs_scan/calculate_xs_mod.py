@@ -5,7 +5,7 @@ from subprocess import Popen
 
 import pandas as pd
 
-from hep_pheno_tools.madgraph_tools import get_new_seed
+#from hep_pheno_tools.madgraph_tools import get_new_seed
 
 
 def calculate_xs(
@@ -42,13 +42,13 @@ def calculate_xs(
             The cross section in pb
     """
     # Set the mass
-    params_dict["ms1t"] = mass * 1e3
-    params_dict["s1tm43"] = mass * 1e3  # TeV to GeV
+    params_dict["ms1t"] = mass * 1e3  # TeV to GeV
+    params_dict["s1tm43"] = mass * 1e3
     params_dict["ws1t"] = "auto"
     params_dict["ws1tm43"] = "auto"
-    seed = get_new_seed(seeds) 
+    seed = get_new_seed(seeds)
     output = os.path.join(outputs_dir, f"xs_s1tm43_{mass:.2f}TeV")
-   
+    
     try:
         os.makedirs(output, exist_ok=False)
     except FileExistsError:
