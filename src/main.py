@@ -16,9 +16,9 @@ def get_kinematics_df(output_dir: str) -> pd.DataFrame:
 
 
 def main():
-    run_sims = False
+    run_sims = True
     read_kinematics = False
-    n_runs = 1
+    n_runs = 10
     if run_sims:
         outputs = run_simulations(n_runs)
         pickle.dump(outputs, open("outputs.pkl", "wb"))

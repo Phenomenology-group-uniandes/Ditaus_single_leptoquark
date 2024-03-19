@@ -9,13 +9,15 @@ from hep_pheno_tools.madgraph_tools import get_new_seed
 # Set coupling parameters for the scan
 params_dict = {
     # mg5_name: value
-    "gu": 1.0,
-    "betal33": 1.0,
-    "betard33": -1.0,
-    "betal23": 0.2,
-    "betal32": 0.0,
-    "kappau": 0.0,
-    "kappautilde": 0.0,
+    "yrr1x1": 1.000000e-00,
+    "yrr1x2": 0.000000e00,
+    "yrr1x3": 0.000000e00,
+    "yrr2x1": 0.000000e00,
+    "yrr2x2": 1.000000e-00,
+    "yrr2x3": 0.000000e00,
+    "yrr3x1": 0.000000e00,
+    "yrr3x2": 0.000000e00,
+    "yrr3x3": 1.000000e-00
 }
 
 # Set the mass range for the scan
@@ -29,7 +31,7 @@ seeds = []
 
 # Set the paths
 ufo_path = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "model", "vLQ_UFO"
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "model", "LO_LQ_S1~"
 )
 mg5_bin_path = os.path.join(os.sep, "Collider", "MG5_aMC_v3_1_0", "bin", "mg5_aMC")
 pythia_card = os.path.join(os.path.dirname(os.path.dirname(__file__)), "pythia8_card.dat")
@@ -67,8 +69,10 @@ def launch_process(
     n_events: int = 50000,
     n_workers: int = 4,
 ) -> float:
-    params_dict["mvlq"] = mass * 1e3  # TeV to GeV
-    params_dict["wvlq"] = "auto"
+    params_dict["ms1t"] = mass * 1e3  # TeV to GeV
+    params_dict["s1tm43"] = mass * 1e3
+    params_dict["ws1t"] = "auto"
+    params_dict["ws1tm43"] = "auto"
     seed = get_new_seed(seeds)
     file_name = "settings.mg5"
     with open(file_name, "w") as f:
@@ -94,7 +98,7 @@ def launch_process(
 def full_sim(n_runs: int):
 
     def run_mass(mass: float):
-        output = create_output(f"delphes_vlQ_{mass:.2f}TeV", ufo_path, mg5_bin_path, outputs_dir)
+        output = create_output(f"delphes_s1tm43_{mass:.2f}TeV", ufo_path, mg5_bin_path, outputs_dir)
         for _ in range(n_runs):
             launch_process(
                 mass,
